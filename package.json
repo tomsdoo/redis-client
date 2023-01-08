@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/tomsdoo/redis-client/issues"
   },
-  "homepage": "https://github.com/tomsdoo/redis-client#readme"
+  "homepage": "https://github.com/tomsdoo/redis-client#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
 }
