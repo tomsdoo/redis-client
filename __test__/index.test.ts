@@ -1,4 +1,11 @@
-import { beforeEach, afterEach, describe, it, expect, jest } from "@jest/globals";
+import {
+  beforeEach,
+  afterEach,
+  describe,
+  it,
+  expect,
+  jest,
+} from "@jest/globals";
 import { test } from "@/index";
 
 describe("test", () => {
