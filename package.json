@@ -11,6 +11,8 @@
     "format:src": "prettier --write src/",
     "format:test": "prettier --write __test__/",
     "prepare": "husky install",
+    "start-redis": "docker image build -f Dockerfile -t redis-alpine-image:v1.0.0 . && docker run --name redis-alpine-instance --rm -d redis-alpine-image:v1.0.0",
+    "stop-redis": "docker container stop redis-alpine-instance",
     "test": "jest"
   },
   "lint-staged": {
