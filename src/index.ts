@@ -12,7 +12,7 @@ export class Redis {
     this.redis = undefined;
   }
 
-  public getRedis() {
+  public getRedis(): IORedis {
     this.redis = this.redis ?? new IORedis(this.port, this.host);
     return this.redis;
   }
