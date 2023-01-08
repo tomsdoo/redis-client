@@ -7,6 +7,9 @@
   "types": "dist/esm/index.d.ts",
   "scripts": {
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
+    "format": "npm run format:src && npm run format:test",
+    "format:src": "prettier --write src/",
+    "format:test": "prettier --write __test__/",
     "prepare": "husky install",
     "test": "jest"
   },
