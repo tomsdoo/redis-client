@@ -15,15 +15,15 @@ describe("test", () => {
 });
 
 describe("Redis class", () => {
+  let instance: Redis;
+
+  beforeEach(() => {
+    instance = new Redis(6379, "localhost");
+  });
+
+  afterEach(() => {});
+
   describe("constructor", () => {
-    let instance: Redis;
-
-    beforeEach(() => {
-      instance = new Redis(6379, "localhost");
-    });
-
-    afterEach(() => {});
-
     it("instance has port", () => {
       expect(instance).toHaveProperty("port", 6379);
     });
