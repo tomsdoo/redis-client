@@ -20,10 +20,12 @@
   },
   "lint-staged": {
     "src/**/*.ts": [
-      "npm run format"
+      "npm run lint:src",
+      "npm run format:src"
     ],
     "__test__/**/*.ts": [
-      "npm run format"
+      "npm run lint:test",
+      "npm run format:test"
     ]
   },
   "repository": {
