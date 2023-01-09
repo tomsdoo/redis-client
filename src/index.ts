@@ -40,4 +40,15 @@ export class Redis {
         return JSON.parse(value);
       });
   }
+
+  public async set(
+    key: string,
+    value: any,
+    expireSeconds?: number
+  ): Promise<"OK"> {
+    const redis = this.getRedis();
+    return expireSeconds !== undefined
+      ? await redis.set(key, JSON.stringify(value), "EX", expireSeconds)
+      : await redis.set(key, JSON.stringify(value));
+  }
 }
