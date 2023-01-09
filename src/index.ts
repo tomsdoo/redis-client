@@ -20,4 +20,13 @@ export class Redis {
     this.redis = this.redis ?? new IORedis(this.config);
     return this.redis;
   }
+
+  public async getKeys(): Promise<string[]> {
+    const keyFilter = `${this.config.keyPrefix ?? ""}*`;
+    const sliceKey = (s: string): string =>
+      s.slice(this.config?.keyPrefix?.length ?? 0);
+    return await this.getRedis()
+      .keys(keyFilter)
+      .then((keys: string[]) => keys.map(sliceKey));
+  }
 }
