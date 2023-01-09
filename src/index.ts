@@ -1,17 +1,22 @@
 import IORedis from "ioredis";
 
+interface RedisConfig {
+  port?: number;
+  host?: string;
+  db?: number;
+  password?: string;
+}
+
 export class Redis {
-  protected port: number;
-  protected host: string;
+  public config: RedisConfig;
   protected redis: IORedis | undefined;
-  constructor(port: number, host: string) {
-    this.port = port;
-    this.host = host;
+  constructor(config: RedisConfig) {
+    this.config = config;
     this.redis = undefined;
   }
 
   public getRedis(): IORedis {
-    this.redis = this.redis ?? new IORedis(this.port, this.host);
+    this.redis = this.redis ?? new IORedis(this.config);
     return this.redis;
   }
 }

@@ -31,7 +31,7 @@ jest.mock(
     class IORedis {
       protected port: number;
       protected host: string;
-      constructor(port: number, host: string) {
+      constructor({ port, host }: { port: number; host: string }) {
         this.port = port;
         this.host = host;
         counter.ioredis.constructor.push({ port, host });
@@ -42,7 +42,10 @@ jest.mock(
 describe("Redis class", () => {
   let instance: Redis;
   beforeEach(() => {
-    instance = new Redis(6379, "locahohost");
+    instance = new Redis({
+      port: 6379,
+      host: "locahohost",
+    });
   });
 
   afterEach(() => {
