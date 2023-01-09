@@ -51,13 +51,13 @@ describe("Redis class", () => {
 
   describe("getRedis()", () => {
     it("call once", () => {
-      expect(instance.getRedis()).not.toBeUndefined;
+      expect(instance.getRedis()).not.toBeUndefined();
       expect(counter.ioredis.constructor.length).toBe(1);
     });
 
     it("cache is used on call twice", () => {
-      expect(instance.getRedis()).not.toBeUndefined;
-      expect(instance.getRedis()).not.toBeUndefined;
+      expect(instance.getRedis()).not.toBeUndefined();
+      expect(instance.getRedis()).not.toBeUndefined();
       expect(counter.ioredis.constructor.length).toBe(1);
     });
   });

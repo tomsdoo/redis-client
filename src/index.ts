@@ -1,7 +1,5 @@
 import IORedis from "ioredis";
 
-export const test = 1;
-
 export class Redis {
   protected port: number;
   protected host: string;
