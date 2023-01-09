@@ -6,13 +6,7 @@ import {
   expect,
   jest,
 } from "@jest/globals";
-import { Redis, test } from "@/index";
-
-describe("test", () => {
-  it("value is 1", () => {
-    expect(test).toBe(1);
-  });
-});
+import { Redis } from "@/index";
 
 describe("Redis class", () => {
   let instance: Redis;
@@ -21,7 +15,9 @@ describe("Redis class", () => {
     instance = new Redis(6379, "localhost");
   });
 
-  afterEach(() => {});
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   describe("constructor", () => {
     it("instance has port", () => {
