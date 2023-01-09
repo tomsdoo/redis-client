@@ -29,4 +29,10 @@ export class Redis {
       .keys(keyFilter)
       .then((keys: string[]) => keys.map(sliceKey));
   }
+
+  public async get<T = any>(key: string): Promise<T> {
+    return await this.getRedis()
+      .get(key)
+      .then((value) => (value != null && JSON.parse(value)) ?? undefined);
+  }
 }
