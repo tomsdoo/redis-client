@@ -5,6 +5,7 @@ interface RedisConfig {
   host?: string;
   db?: number;
   password?: string;
+  keyPrefix?: string;
 }
 
 export class Redis {
