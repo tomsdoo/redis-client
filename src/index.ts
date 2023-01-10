@@ -55,4 +55,9 @@ export class Redis {
   public async del(key: string): Promise<number> {
     return await this.getRedis().del(key);
   }
+
+  public disconnect(): void {
+    this.getRedis().disconnect();
+    this.redis = undefined;
+  }
 }
