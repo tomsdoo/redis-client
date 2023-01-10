@@ -51,4 +51,8 @@ export class Redis {
       ? await redis.set(key, JSON.stringify(value), "EX", expireSeconds)
       : await redis.set(key, JSON.stringify(value));
   }
+
+  public async del(key: string): Promise<number> {
+    return await this.getRedis().del(key);
+  }
 }
