@@ -49,7 +49,7 @@ jest.mock(
 );
 
 describe("Redis class", () => {
-  let instance: Redis;
+  let instance: Redis<{ message: string }>;
   beforeEach(() => {
     instance = new Redis({
       port: 6379,
@@ -68,18 +68,13 @@ describe("Redis class", () => {
   });
 
   it("object will be returned if value is not null", async () => {
-    expect(await instance.get<{ message: string }>("some")).toHaveProperty(
-      "message",
-      "test"
-    );
+    expect(await instance.get("some")).toHaveProperty("message", "test");
     expect(counter.ioredis.get.length).toBe(1);
     expect(counter.ioredis.get.slice(-1)[0]).toBe("some");
   });
 
   it("error will be rejected if value is broken object", async () => {
-    await expect(
-      instance.get<{ message: string }>("brokenObject")
-    ).rejects.toBeInstanceOf(Error);
+    await expect(instance.get("brokenObject")).rejects.toBeInstanceOf(Error);
     expect(counter.ioredis.get.length).toBe(1);
     expect(counter.ioredis.get.slice(-1)[0]).toBe("brokenObject");
   });

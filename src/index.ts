@@ -8,7 +8,7 @@ interface RedisConfig {
   keyPrefix?: string;
 }
 
-export class Redis {
+export class Redis<T = any> {
   public config: RedisConfig;
   protected redis: IORedis | undefined;
   constructor(config: RedisConfig) {
@@ -30,7 +30,7 @@ export class Redis {
       .then((keys: string[]) => keys.map(sliceKey));
   }
 
-  public async get<T = any>(key: string): Promise<T> {
+  public async get(key: string): Promise<T> {
     return await this.getRedis()
       .get(key)
       .then((value) => {
