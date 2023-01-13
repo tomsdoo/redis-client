@@ -13,9 +13,11 @@ describe("Redis class", () => {
 
   beforeEach(() => {
     instance = new Redis({
-      port: 6379,
-      host: "localhost",
       keyPrefix: "some",
+      options: {
+        port: 6379,
+        host: "localhost",
+      },
     });
   });
 
@@ -24,12 +26,12 @@ describe("Redis class", () => {
   });
 
   describe("constructor", () => {
-    it("instance has config.port", () => {
-      expect(instance.config).toHaveProperty("port", 6379);
+    it("instance has config.options.port", () => {
+      expect(instance.config).toHaveProperty("options.port", 6379);
     });
 
-    it("instance has config.host", () => {
-      expect(instance.config).toHaveProperty("host", "localhost");
+    it("instance has config.options.host", () => {
+      expect(instance.config).toHaveProperty("options.host", "localhost");
     });
 
     it("instance has config.keyPrefix", () => {

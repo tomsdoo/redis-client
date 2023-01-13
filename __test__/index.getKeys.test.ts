@@ -56,8 +56,10 @@ describe("Redis class", () => {
   describe("getKeys()", () => {
     it("keyPrefix does not exist", async () => {
       instance = new Redis({
-        port: 6379,
-        host: "localhost",
+        options: {
+          port: 6379,
+          host: "localhost",
+        },
       });
 
       expect(await instance.getKeys()).toEqual(["0", "1"]);
@@ -67,8 +69,10 @@ describe("Redis class", () => {
 
     it("keyPrefix exists", async () => {
       instance = new Redis({
-        port: 6379,
-        host: "localhost",
+        options: {
+          port: 6379,
+          host: "localhost",
+        },
         keyPrefix: "testkey",
       });
 
