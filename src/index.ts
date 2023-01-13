@@ -1,6 +1,7 @@
 import IORedis, { RedisOptions } from "ioredis";
 
 interface EasyRedisConfig {
+  keyProp?: string;
   keyPrefix?: string;
   options: RedisOptions;
 }
@@ -11,6 +12,10 @@ export class Redis<T = any> {
   constructor(config: EasyRedisConfig) {
     this.config = config;
     this.redis = undefined;
+  }
+
+  public get keyProp(): string {
+    return this.config.keyProp ?? "_id";
   }
 
   public getRedis(): IORedis {
