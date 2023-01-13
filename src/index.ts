@@ -1,8 +1,10 @@
 import IORedis, { RedisOptions } from "ioredis";
+import { v4 as uuid } from "uuid";
 
 interface EasyRedisConfig {
   keyProp?: string;
   keyPrefix?: string;
+  expireSeconds?: number;
   options: RedisOptions;
 }
 
@@ -16,6 +18,10 @@ export class Redis<T = any> {
 
   public get keyProp(): string {
     return this.config.keyProp ?? "_id";
+  }
+
+  public get expireSeconds(): number | undefined {
+    return this.config.expireSeconds;
   }
 
   public getRedis(): IORedis {
@@ -43,15 +49,20 @@ export class Redis<T = any> {
       });
   }
 
-  public async set(
-    key: string,
-    value: any,
-    expireSeconds?: number
-  ): Promise<"OK"> {
+  public async set(value: T | Partial<T>): Promise<T> {
     const redis = this.getRedis();
-    return expireSeconds !== undefined
-      ? await redis.set(key, JSON.stringify(value), "EX", expireSeconds)
-      : await redis.set(key, JSON.stringify(value));
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+    const savingObj: T = {
+      [this.keyProp]: uuid(),
+      ...value,
+    } as T;
+    // @ts-expect-error
+    const key = savingObj[this.keyProp];
+    return this.expireSeconds !== undefined
+      ? await redis
+          .set(key, JSON.stringify(savingObj), "EX", this.expireSeconds)
+          .then(() => savingObj)
+      : await redis.set(key, JSON.stringify(savingObj)).then(() => savingObj);
   }
 
   public async del(key: string): Promise<number> {

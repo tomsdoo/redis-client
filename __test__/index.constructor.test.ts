@@ -16,7 +16,7 @@ describe("Redis class", () => {
   });
 
   describe("constructor", () => {
-    describe("without keyProp", () => {
+    describe("without some", () => {
       beforeEach(() => {
         instance = new Redis({
           keyPrefix: "some",
@@ -46,6 +46,10 @@ describe("Redis class", () => {
       it("instance has keyProp as default value", () => {
         expect(instance.keyProp).toBe("_id");
       });
+
+      it("instance has expireSeconds as default value", () => {
+        expect(instance.expireSeconds).toBe(undefined);
+      });
     });
 
     describe("with keyProp", () => {
@@ -61,6 +65,22 @@ describe("Redis class", () => {
 
       it("instance has keyProp", () => {
         expect(instance.keyProp).toBe("keyProp");
+      });
+    });
+
+    describe("with expireSeconds", () => {
+      beforeEach(() => {
+        instance = new Redis({
+          options: {
+            port: 6379,
+            host: "localhost",
+          },
+          expireSeconds: 10,
+        });
+      });
+
+      it("instance has expireSeconds", () => {
+        expect(instance.expireSeconds).toBe(10);
       });
     });
   });
