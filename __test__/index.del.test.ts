@@ -44,8 +44,10 @@ describe("Redis class", () => {
   let instance: Redis;
   beforeEach(() => {
     instance = new Redis({
-      port: 6379,
-      host: "localhost",
+      options: {
+        port: 6379,
+        host: "localhost",
+      },
     });
   });
 
