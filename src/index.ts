@@ -3,7 +3,6 @@ import { v4 as uuid } from "uuid";
 
 interface EasyRedisConfig {
   keyProp?: string;
-  keyPrefix?: string;
   expireSeconds?: number;
   options: RedisOptions;
 }
@@ -30,9 +29,9 @@ export class Redis<T = any> {
   }
 
   public async getKeys(): Promise<string[]> {
-    const keyFilter = `${this.config.keyPrefix ?? ""}*`;
+    const keyFilter = `${this.config?.options?.keyPrefix ?? ""}*`;
     const sliceKey = (s: string): string =>
-      s.slice(this.config?.keyPrefix?.length ?? 0);
+      s.slice(this.config?.options?.keyPrefix?.length ?? 0);
     return await this.getRedis()
       .keys(keyFilter)
       .then((keys: string[]) => keys.map(sliceKey));

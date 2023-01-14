@@ -72,8 +72,8 @@ describe("Redis class", () => {
         options: {
           port: 6379,
           host: "localhost",
+          keyPrefix: "testkey",
         },
-        keyPrefix: "testkey",
       });
 
       expect(await instance.getKeys()).toEqual(["0", "1"]);
