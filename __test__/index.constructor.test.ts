@@ -19,10 +19,10 @@ describe("Redis class", () => {
     describe("without some", () => {
       beforeEach(() => {
         instance = new Redis({
-          keyPrefix: "some",
           options: {
             port: 6379,
             host: "localhost",
+            keyPrefix: "some",
           },
         });
       });
@@ -35,8 +35,8 @@ describe("Redis class", () => {
         expect(instance.config).toHaveProperty("options.host", "localhost");
       });
 
-      it("instance has config.keyPrefix", () => {
-        expect(instance.config).toHaveProperty("keyPrefix", "some");
+      it("instance has config.options.keyPrefix", () => {
+        expect(instance.config).toHaveProperty("options.keyPrefix", "some");
       });
 
       it("instance has redis", () => {
