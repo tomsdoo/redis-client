@@ -3,6 +3,7 @@
     "lib": ["esnext"],
     "declaration": true,
     "strict": true,
+    "target": "es2018",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
