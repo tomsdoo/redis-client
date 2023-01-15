@@ -62,3 +62,10 @@ console.log(
 ) // { key: "key", name: "name", message: "message" }
 ```
 
+deleting data.
+
+``` typescript
+console.log(
+  await redis.del("key")
+) // 1
+```
