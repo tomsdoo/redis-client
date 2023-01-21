@@ -10,11 +10,13 @@ npm install @tomsd/redis-client
 
 ## Usage
 
-importing  `Redis` class.
+<details open><summary><h3>importing  `Redis` class.</h3></summary>
 
-``` typescript
-import { Redis } from "@tomsd/redis-client";
-```
+  ``` typescript
+  import { Redis } from "@tomsd/redis-client";
+  ```
+
+</details>
 
 creating an instance.
 
