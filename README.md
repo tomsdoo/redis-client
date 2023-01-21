@@ -10,13 +10,15 @@ npm install @tomsd/redis-client
 
 ## Usage
 
-importing  `Redis` class.
+<details open><summary><h3>importing  Redis class.</h3></summary>
 
 ``` typescript
 import { Redis } from "@tomsd/redis-client";
 ```
 
-creating an instance.
+</details>
+
+<details open><summary><h3>creating an instance.</h3></summary>
 
 ``` typescript
 interface Some {
@@ -34,7 +36,9 @@ const redis = new Redis<Some>({
 });
 ```
 
-setting data.
+</details>
+
+<details open><summary><h3>setting data.</h3></summary>
 
 ``` typescript
 console.log(
@@ -46,7 +50,9 @@ console.log(
 ) // { key: "key", name: "name", message: "message" }
 ```
 
-getting keys.
+</details>
+
+<details open><summary><h3>getting keys.</h3></summary>
 
 ``` typescript
 console.og(
@@ -54,7 +60,9 @@ console.og(
 ) // ["key"]
 ```
 
-getting data.
+</details>
+
+<details open><summary><h3>getting data.</h3></summary>
 
 ``` typescript
 console.log(
@@ -62,10 +70,14 @@ console.log(
 ) // { key: "key", name: "name", message: "message" }
 ```
 
-deleting data.
+</details>
+
+<details open><summary><h3>deleting data.</h3></summary>
 
 ``` typescript
 console.log(
   await redis.del("key")
 ) // 1
 ```
+
+</details>
