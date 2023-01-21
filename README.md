@@ -1,6 +1,7 @@
 # @tomsd/redis-client
 
 It's a wrapper of [ioredis](https://www.npmjs.com/package/ioredis).  
+See [redis-client.netlify.app](https://redis-client.netlify.app/) also.
 
 ## Installation
 
