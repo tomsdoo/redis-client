@@ -1,7 +1,7 @@
 {
   "name": "@tomsd/redis-client",
   "version": "1.0.0",
-  "description": "",
+  "description": "It's a wrapper of uiredis.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -35,7 +35,9 @@
     "type": "git",
     "url": "git+https://github.com/tomsdoo/redis-client.git"
   },
-  "keywords": [],
+  "keywords": [
+    "redis"
+  ],
   "author": "tom",
   "license": "MIT",
   "bugs": {
