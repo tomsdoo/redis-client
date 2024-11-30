@@ -63,7 +63,7 @@
     "typescript": "5.7.2"
   },
   "dependencies": {
-    "ioredis": "5.2.4",
+    "ioredis": "5.4.1",
     "uuid": "11.0.3"
   }
 }
