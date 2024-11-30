@@ -6,7 +6,5 @@
     "outDir": "./dist/cjs/",
     "declaration": false
   },
-  "files":[
-    "src/index.ts"
-  ]
+  "files": ["src/index.ts"]
 }

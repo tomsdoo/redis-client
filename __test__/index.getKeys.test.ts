@@ -1,5 +1,5 @@
-import { beforeEach, describe, it, expect, jest } from "@jest/globals";
 import { Redis } from "@/index";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 const counter: {
   ioredis: {
@@ -39,12 +39,12 @@ jest.mock(
       public async keys(filterKey: string): Promise<string[]> {
         counter.ioredis.keys.push(filterKey);
         return await Promise.resolve(
-          Array.from(Array(2), (v, i) => i).map(
-            (i) => `${filterKey.replace(/\*/g, "")}${i}`
-          )
+          Array.from(new Array(2), (_v, i) => i).map(
+            (i) => `${filterKey.replace(/\*/g, "")}${i}`,
+          ),
         );
       }
-    }
+    },
 );
 
 describe("Redis class", () => {

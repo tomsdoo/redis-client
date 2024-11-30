@@ -5,8 +5,8 @@ import { clients } from "./common";
     await clients.userRedis.set({
       name: "john",
       email: "john@test.test",
-    })
-  )
+    }),
+  );
 })()
   .then(() => process.exit())
   .catch(() => process.exit());

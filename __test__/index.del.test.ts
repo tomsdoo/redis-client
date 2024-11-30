@@ -1,12 +1,12 @@
+import { Redis } from "@/index";
 import {
-  beforeEach,
   afterEach,
+  beforeEach,
   describe,
-  it,
   expect,
+  it,
   jest,
 } from "@jest/globals";
-import { Redis } from "@/index";
 
 const counter: {
   ioredis: {
@@ -37,7 +37,7 @@ jest.mock(
         counter.ioredis.del.push(key);
         return await Promise.resolve(1);
       }
-    }
+    },
 );
 
 describe("Redis class", () => {
