@@ -3,6 +3,19 @@
 It's a wrapper of [ioredis](https://www.npmjs.com/package/ioredis).  
 See [redis-client.netlify.app](https://redis-client.netlify.app/) also.
 
+![npm](https://img.shields.io/npm/v/@tomsd/redis-client?style=for-the-badge&logo=npm)
+![NPM](https://img.shields.io/npm/l/@tomsd/redis-client?style=for-the-badge&logo=npm)
+![release date](https://img.shields.io/github/release-date/tomsdoo/redis-client?style=for-the-badge&logo=npm)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/@tomsd/redis-client?style=for-the-badge&logo=npm)
+
+![ci](https://img.shields.io/github/actions/workflow/status/tomsdoo/redis-client/ci.yml?style=social&logo=github)
+![checks](https://img.shields.io/github/check-runs/tomsdoo/redis-client/main?style=social&logo=github)
+![top language](https://img.shields.io/github/languages/top/tomsdoo/redis-client?style=social&logo=typescript)
+![Maintenance](https://img.shields.io/maintenance/yes/2024?style=social&logo=github)
+![depends on ioredis@5](https://img.shields.io/badge/ioredis-ioredis@5-informational?style=social&logo=redis)
+![depends on node greater or equal 18](https://img.shields.io/badge/node.js-%3E%3D%2018-lightyellow?style=social&logo=nodedotjs)
+
+
 ## Installation
 
 ``` shell
