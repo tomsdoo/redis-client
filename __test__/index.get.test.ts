@@ -1,12 +1,5 @@
 import { Redis } from "@/index";
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  jest,
-} from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const counter: {
   ioredis: {
@@ -22,31 +15,29 @@ const counter: {
   },
 };
 
-jest.mock(
-  "ioredis",
-  () =>
-    class IORedis {
-      protected port: number;
-      protected host: string;
-      constructor({ port, host }: { port: number; host: string }) {
-        this.port = port;
-        this.host = host;
-      }
+vi.mock("ioredis", () => ({
+  default: class IORedis {
+    protected port: number;
+    protected host: string;
+    constructor({ port, host }: { port: number; host: string }) {
+      this.port = port;
+      this.host = host;
+    }
 
-      public async get(key: string): Promise<string | null> {
-        counter.ioredis.get.push(key);
-        const result =
-          key === "wantNull"
-            ? null
-            : key === "brokenObject"
-              ? "brokenObject"
-              : JSON.stringify({
-                  message: "test",
-                });
-        return await Promise.resolve(result);
-      }
-    },
-);
+    public async get(key: string): Promise<string | null> {
+      counter.ioredis.get.push(key);
+      const result =
+        key === "wantNull"
+          ? null
+          : key === "brokenObject"
+            ? "brokenObject"
+            : JSON.stringify({
+                message: "test",
+              });
+      return await Promise.resolve(result);
+    }
+  },
+}));
 
 describe("Redis class", () => {
   let instance: Redis<{ message: string }>;
