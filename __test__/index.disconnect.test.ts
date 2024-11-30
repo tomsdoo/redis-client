@@ -1,12 +1,5 @@
 import { Redis } from "@/index";
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  jest,
-} from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const counter: {
   ioredis: {
@@ -28,28 +21,26 @@ const counter: {
   },
 };
 
-jest.mock(
-  "ioredis",
-  () =>
-    class IORedis {
-      protected port: number;
-      protected host: string;
-      constructor({ port, host }: { port: number; host: string }) {
-        this.port = port;
-        this.host = host;
-        counter.ioredis.constructor.push({
-          port,
-          host,
-        });
-      }
+vi.mock("ioredis", () => ({
+  default: class IORedis {
+    protected port: number;
+    protected host: string;
+    constructor({ port, host }: { port: number; host: string }) {
+      this.port = port;
+      this.host = host;
+      counter.ioredis.constructor.push({
+        port,
+        host,
+      });
+    }
 
-      public disconnect(): void {
-        counter.ioredis.disconnect.push({
-          called: true,
-        });
-      }
-    },
-);
+    public disconnect(): void {
+      counter.ioredis.disconnect.push({
+        called: true,
+      });
+    }
+  },
+}));
 
 describe("Redis class", () => {
   let instance: Redis;
