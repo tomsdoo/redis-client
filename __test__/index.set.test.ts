@@ -17,7 +17,7 @@ const counter: {
       expires?: number;
     }>;
   };
-  reset: Function;
+  reset: () => void;
 } = {
   ioredis: {
     set: [],

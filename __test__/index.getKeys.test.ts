@@ -5,7 +5,7 @@ const counter: {
   ioredis: {
     keys: string[];
   };
-  reset: Function;
+  reset: () => void;
 } = {
   ioredis: {
     keys: [],

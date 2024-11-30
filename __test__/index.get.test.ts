@@ -12,7 +12,7 @@ const counter: {
   ioredis: {
     get: string[];
   };
-  reset: Function;
+  reset: () => void;
 } = {
   ioredis: {
     get: [],
