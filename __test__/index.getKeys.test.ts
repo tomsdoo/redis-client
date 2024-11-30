@@ -1,68 +1,36 @@
 import { Redis } from "@/index";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-
-const counter: {
-  ioredis: {
-    keys: string[];
-  };
-  reset: () => void;
-} = {
-  ioredis: {
-    keys: [],
-  },
-  reset: () => {
-    counter.ioredis.keys = [];
-  },
-};
-
-vi.mock("ioredis", () => ({
-  default: class IORedis {
-    protected port: number;
-    protected host: string;
-    protected keyPrefix: string;
-    constructor({
-      port,
-      host,
-      keyPrefix,
-    }: {
-      port: number;
-      host: string;
-      keyPrefix: string;
-    }) {
-      this.port = port;
-      this.host = host;
-      this.keyPrefix = keyPrefix;
-    }
-
-    public async keys(filterKey: string): Promise<string[]> {
-      counter.ioredis.keys.push(filterKey);
-      return await Promise.resolve(
-        Array.from(new Array(2), (_v, i) => i).map(
-          (i) => `${filterKey.replace(/\*/g, "")}${i}`,
-        ),
-      );
-    }
-  },
-}));
+import IORedis from "ioredis";
+import {
+  type MockInstance,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 
 describe("Redis class", () => {
   let instance: Redis;
+  let spy: MockInstance;
   beforeEach(() => {
-    counter.reset();
+    instance = new Redis({
+      options: {
+        port: 6379,
+        host: "localhost",
+      },
+    });
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
   });
 
   describe("getKeys()", () => {
     it("keyPrefix does not exist", async () => {
-      instance = new Redis({
-        options: {
-          port: 6379,
-          host: "localhost",
-        },
-      });
-
+      spy = vi.spyOn(IORedis.prototype, "keys").mockResolvedValue(["0", "1"]);
       expect(await instance.getKeys()).toEqual(["0", "1"]);
-      expect(counter.ioredis.keys.length).toBe(1);
-      expect(counter.ioredis.keys.slice(-1)[0]).toBe("*");
+      expect(spy).toHaveBeenCalledWith("*");
     });
 
     it("keyPrefix exists", async () => {
@@ -74,9 +42,11 @@ describe("Redis class", () => {
         },
       });
 
+      spy = vi
+        .spyOn(IORedis.prototype, "keys")
+        .mockResolvedValue(["testkey0", "testkey1"]);
       expect(await instance.getKeys()).toEqual(["0", "1"]);
-      expect(counter.ioredis.keys.length).toBe(1);
-      expect(counter.ioredis.keys.slice(-1)[0]).toBe("testkey*");
+      expect(spy).toHaveBeenCalledWith("testkey*");
     });
   });
 });

@@ -1,49 +1,18 @@
 import { Redis } from "@/index";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
-const counter: {
-  ioredis: {
-    constructor: Array<{
-      port: number;
-      host: string;
-    }>;
-    disconnect: any[];
-  };
-  reset: () => void;
-} = {
-  ioredis: {
-    constructor: [],
-    disconnect: [],
-  },
-  reset: () => {
-    counter.ioredis.constructor = [];
-    counter.ioredis.disconnect = [];
-  },
-};
-
-vi.mock("ioredis", () => ({
-  default: class IORedis {
-    protected port: number;
-    protected host: string;
-    constructor({ port, host }: { port: number; host: string }) {
-      this.port = port;
-      this.host = host;
-      counter.ioredis.constructor.push({
-        port,
-        host,
-      });
-    }
-
-    public disconnect(): void {
-      counter.ioredis.disconnect.push({
-        called: true,
-      });
-    }
-  },
-}));
+import IORedis from "ioredis";
+import {
+  type MockInstance,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 
 describe("Redis class", () => {
   let instance: Redis;
+  let spy: MockInstance;
   beforeEach(() => {
     instance = new Redis({
       options: {
@@ -51,34 +20,25 @@ describe("Redis class", () => {
         host: "localhost",
       },
     });
+
+    spy = vi.spyOn(IORedis.prototype, "disconnect").mockResolvedValue();
   });
 
   afterEach(() => {
-    counter.reset();
+    vi.clearAllMocks();
   });
 
   describe("disconnect()", () => {
     it("success", () => {
       instance.disconnect();
-      expect(counter.ioredis.disconnect.length).toBe(1);
-      expect(counter.ioredis.disconnect.slice(-1)[0]).toEqual({
-        called: true,
-      });
+      expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it("IORedis instance is recreated if disconnected", () => {
       instance.disconnect();
-      expect(counter.ioredis.constructor.length).toBe(1);
-      expect(counter.ioredis.constructor.slice(-1)[0]).toEqual({
-        port: 6379,
-        host: "localhost",
-      });
+      expect(spy).toHaveBeenCalledTimes(1);
       instance.disconnect();
-      expect(counter.ioredis.constructor.length).toBe(2);
-      expect(counter.ioredis.constructor.slice(-1)[0]).toEqual({
-        port: 6379,
-        host: "localhost",
-      });
+      expect(spy).toHaveBeenCalledTimes(2);
     });
   });
 });

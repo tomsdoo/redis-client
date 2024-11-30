@@ -1,53 +1,17 @@
 import { Redis } from "@/index";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
-const counter: {
-  ioredis: {
-    set: Array<{
-      key: string;
-      value: string;
-      expireType?: string;
-      expires?: number;
-    }>;
-  };
-  reset: () => void;
-} = {
-  ioredis: {
-    set: [],
-  },
-  reset: () => {
-    counter.ioredis.set = [];
-  },
-};
+import IORedis from "ioredis";
+import {
+  type MockInstance,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 
 vi.mock("uuid", () => ({
   v4: () => "dummyId",
-}));
-
-vi.mock("ioredis", () => ({
-  default: class IORedis {
-    protected port: number;
-    protected host: string;
-    constructor({ port, host }: { port: number; host: string }) {
-      this.port = port;
-      this.host = host;
-    }
-
-    public async set(
-      key: string,
-      value: string,
-      expireType?: string,
-      expires?: number,
-    ): Promise<"OK"> {
-      counter.ioredis.set.push({
-        key,
-        value,
-        expireType,
-        expires,
-      });
-      return await Promise.resolve("OK");
-    }
-  },
 }));
 
 describe("Redis class", () => {
@@ -58,6 +22,7 @@ describe("Redis class", () => {
     }
 
     let instance: Redis<TestType>;
+    let spy: MockInstance;
 
     describe("expireSeconds is not set", () => {
       beforeEach(() => {
@@ -68,10 +33,12 @@ describe("Redis class", () => {
           },
           keyProp: "key",
         });
+
+        spy = vi.spyOn(IORedis.prototype, "set").mockResolvedValue("OK");
       });
 
       afterEach(() => {
-        counter.reset();
+        vi.clearAllMocks();
       });
 
       it("not expires", async () => {
@@ -79,11 +46,14 @@ describe("Redis class", () => {
           key: "dummyId",
           message: "test",
         });
-        expect(counter.ioredis.set.length).toBe(1);
-        expect(counter.ioredis.set.slice(-1)[0]).toEqual({
-          key: "dummyId",
-          value: JSON.stringify({ key: "dummyId", message: "test" }),
-        });
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledWith(
+          "dummyId",
+          JSON.stringify({
+            key: "dummyId",
+            message: "test",
+          }),
+        );
       });
     });
 
@@ -104,13 +74,16 @@ describe("Redis class", () => {
           key: "dummyId",
           message: "test",
         });
-        expect(counter.ioredis.set.length).toBe(1);
-        expect(counter.ioredis.set.slice(-1)[0]).toEqual({
-          key: "dummyId",
-          value: JSON.stringify({ key: "dummyId", message: "test" }),
-          expireType: "EX",
-          expires: 10,
-        });
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledWith(
+          "dummyId",
+          JSON.stringify({
+            key: "dummyId",
+            message: "test",
+          }),
+          "EX",
+          10,
+        );
       });
     });
   });

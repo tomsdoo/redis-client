@@ -1,46 +1,18 @@
 import { Redis } from "@/index";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
-const counter: {
-  ioredis: {
-    get: string[];
-  };
-  reset: () => void;
-} = {
-  ioredis: {
-    get: [],
-  },
-  reset: () => {
-    counter.ioredis.get = [];
-  },
-};
-
-vi.mock("ioredis", () => ({
-  default: class IORedis {
-    protected port: number;
-    protected host: string;
-    constructor({ port, host }: { port: number; host: string }) {
-      this.port = port;
-      this.host = host;
-    }
-
-    public async get(key: string): Promise<string | null> {
-      counter.ioredis.get.push(key);
-      const result =
-        key === "wantNull"
-          ? null
-          : key === "brokenObject"
-            ? "brokenObject"
-            : JSON.stringify({
-                message: "test",
-              });
-      return await Promise.resolve(result);
-    }
-  },
-}));
+import IORedis from "ioredis";
+import {
+  type MockInstance,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 
 describe("Redis class", () => {
   let instance: Redis<{ message: string }>;
+  let spy: MockInstance;
   beforeEach(() => {
     instance = new Redis({
       options: {
@@ -51,24 +23,28 @@ describe("Redis class", () => {
   });
 
   afterEach(() => {
-    counter.reset();
+    vi.clearAllMocks();
   });
 
   it("undefined will be returned if value is null", async () => {
+    spy = vi.spyOn(IORedis.prototype, "get").mockResolvedValue(null);
     expect(await instance.get("wantNull")).toBe(undefined);
-    expect(counter.ioredis.get.length).toBe(1);
-    expect(counter.ioredis.get.slice(-1)[0]).toBe("wantNull");
+    expect(spy).toHaveBeenCalledWith("wantNull");
   });
 
   it("object will be returned if value is not null", async () => {
+    spy = vi.spyOn(IORedis.prototype, "get").mockResolvedValue(
+      JSON.stringify({
+        message: "test",
+      }),
+    );
     expect(await instance.get("some")).toHaveProperty("message", "test");
-    expect(counter.ioredis.get.length).toBe(1);
-    expect(counter.ioredis.get.slice(-1)[0]).toBe("some");
+    expect(spy).toHaveBeenCalledWith("some");
   });
 
   it("error will be rejected if value is broken object", async () => {
+    spy = vi.spyOn(IORedis.prototype, "get").mockResolvedValue("brokenObject");
     await expect(instance.get("brokenObject")).rejects.toBeInstanceOf(Error);
-    expect(counter.ioredis.get.length).toBe(1);
-    expect(counter.ioredis.get.slice(-1)[0]).toBe("brokenObject");
+    expect(spy).toHaveBeenCalledWith("brokenObject");
   });
 });
