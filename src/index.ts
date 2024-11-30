@@ -1,4 +1,4 @@
-import IORedis, { RedisOptions } from "ioredis";
+import IORedis, { type RedisOptions } from "ioredis";
 import { v4 as uuid } from "uuid";
 
 interface EasyRedisConfig {
@@ -55,8 +55,8 @@ export class Redis<T = any> {
       [this.keyProp]: uuid(),
       ...value,
     } as T;
-    // @ts-expect-error
-    const key = savingObj[this.keyProp];
+    // @ts-expect-error prop name
+    const key: string = savingObj[this.keyProp];
     return this.expireSeconds !== undefined
       ? await redis
           .set(key, JSON.stringify(savingObj), "EX", this.expireSeconds)

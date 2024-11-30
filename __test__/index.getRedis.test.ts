@@ -15,7 +15,7 @@ const counter: {
       host: string;
     }>;
   };
-  reset: Function;
+  reset: () => void;
 } = {
   ioredis: {
     constructor: [],

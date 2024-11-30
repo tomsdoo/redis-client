@@ -16,7 +16,7 @@ const counter: {
     }>;
     disconnect: any[];
   };
-  reset: Function;
+  reset: () => void;
 } = {
   ioredis: {
     constructor: [],
