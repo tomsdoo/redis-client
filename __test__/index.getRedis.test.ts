@@ -1,33 +1,14 @@
 import { Redis } from "@/index";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const counter: {
-  ioredis: {
-    constructor: Array<{
-      port: number;
-      host: string;
-    }>;
-  };
-  reset: () => void;
-} = {
-  ioredis: {
-    constructor: [],
-  },
-  reset: () => {
-    counter.ioredis.constructor = [];
-  },
-};
+const { spy } = vi.hoisted(() => ({
+  spy: vi.fn(() => ({
+    name: "dummy",
+  })),
+}));
 
 vi.mock("ioredis", () => ({
-  default: class IORedis {
-    protected port: number;
-    protected host: string;
-    constructor({ port, host }: { port: number; host: string }) {
-      this.port = port;
-      this.host = host;
-      counter.ioredis.constructor.push({ port, host });
-    }
-  },
+  default: spy,
 }));
 
 describe("Redis class", () => {
@@ -36,25 +17,33 @@ describe("Redis class", () => {
     instance = new Redis({
       options: {
         port: 6379,
-        host: "locahohost",
+        host: "localhost",
       },
     });
   });
 
   afterEach(() => {
-    counter.reset();
+    vi.clearAllMocks();
   });
 
   describe("getRedis()", () => {
     it("call once", () => {
       expect(instance.getRedis()).not.toBeUndefined();
-      expect(counter.ioredis.constructor.length).toBe(1);
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith({
+        host: "localhost",
+        port: 6379,
+      });
     });
 
     it("cache is used on call twice", () => {
       expect(instance.getRedis()).not.toBeUndefined();
       expect(instance.getRedis()).not.toBeUndefined();
-      expect(counter.ioredis.constructor.length).toBe(1);
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith({
+        host: "localhost",
+        port: 6379,
+      });
     });
   });
 });
