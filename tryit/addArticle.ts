@@ -6,7 +6,7 @@ import { clients } from "./common";
       title: "john's article",
       body: "body",
       author: "john@test.test",
-    })
+    }),
   );
 })()
   .then(() => process.exit())

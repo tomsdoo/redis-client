@@ -1,12 +1,12 @@
+import { Redis } from "@/index";
 import {
-  beforeEach,
   afterEach,
+  beforeEach,
   describe,
-  it,
   expect,
+  it,
   jest,
 } from "@jest/globals";
-import { Redis } from "@/index";
 
 describe("Redis class", () => {
   let instance: Redis;
