@@ -34,6 +34,7 @@ describe("Redis class", () => {
       expect(spy).toHaveBeenCalledWith({
         host: "localhost",
         port: 6379,
+        lazyConnect: true,
       });
     });
 
@@ -44,6 +45,7 @@ describe("Redis class", () => {
       expect(spy).toHaveBeenCalledWith({
         host: "localhost",
         port: 6379,
+        lazyConnect: true,
       });
     });
   });
