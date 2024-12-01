@@ -18,6 +18,7 @@ describe("Redis class", () => {
       options: {
         port: 6379,
         host: "localhost",
+        lazyConnect: true,
       },
     });
 
