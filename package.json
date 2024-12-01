@@ -20,7 +20,8 @@
     "start-redis": "docker run --rm -d -p 6379:6379 --name redis-instance redis:alpine",
     "stop-redis": "docker container stop redis-instance",
     "serve:doc": "mdbook --serve --directory docs",
-    "test": "vitest"
+    "test": "vitest --project node",
+    "test:local": "vitest --project local"
   },
   "lint-staged": {
     "src/**/*.ts": [
