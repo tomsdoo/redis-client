@@ -17,8 +17,8 @@
     "build": "tsup",
     "lint": "biome check",
     "prepare": "husky",
-    "start-redis": "docker run --rm -d -p 6379:6379 --name redis-instance redis:alpine",
-    "stop-redis": "docker container stop redis-instance",
+    "start-redis": "docker compose up -d",
+    "stop-redis": "docker compose down",
     "serve:doc": "mdbook --serve --directory docs",
     "test": "vitest --project node",
     "test:local": "vitest --project local"

@@ -1,5 +1,5 @@
 import { Redis } from "@/index";
-import { beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 interface User {
   email: string;
@@ -12,24 +12,6 @@ interface Article {
   title: string;
   body: string;
 }
-
-const clients = {
-  userRedis: new Redis<User>({
-    keyProp: "email",
-    options: {
-      port: 6379,
-      host: "localhost",
-      keyPrefix: "user",
-    },
-  }),
-  articleRedis: new Redis<Article>({
-    options: {
-      port: 6379,
-      host: "localhost",
-      keyPrefix: "article",
-    },
-  }),
-};
 
 const seed = ((names: string[]) => ({
   users: names.map((name) => ({
@@ -44,12 +26,39 @@ const seed = ((names: string[]) => ({
 }))(["alice", "bob", "charlie"]);
 
 describe("local", () => {
+  let clients: {
+    userRedis: Redis<User>;
+    articleRedis: Redis<Article>;
+  };
   beforeAll(async () => {
+    clients = {
+      userRedis: new Redis<User>({
+        keyProp: "email",
+        options: {
+          port: 6379,
+          host: "localhost",
+          keyPrefix: "user",
+        },
+      }),
+      articleRedis: new Redis<Article>({
+        options: {
+          port: 6379,
+          host: "localhost",
+          keyPrefix: "article",
+        },
+      }),
+    };
     for (const user of seed.users) {
       await clients.userRedis.set(user);
     }
     for (const article of seed.articles) {
       await clients.articleRedis.set(article);
+    }
+  });
+
+  afterAll(() => {
+    for (const client of Object.values(clients)) {
+      client.disconnect();
     }
   });
 

@@ -16,8 +16,8 @@ function execute(cmd: string) {
 
 beforeAll(async () => {
   await execute("npm run start-redis");
-});
+}, 30 * 1000);
 
 afterAll(async () => {
   await execute("npm run stop-redis");
-});
+}, 30 * 1000);
