@@ -50,11 +50,11 @@
     "@types/node": "22.15.21",
     "@types/uuid": "10.0.0",
     "husky": "9.1.7",
-    "lint-staged": "16.0.0",
+    "lint-staged": "16.1.2",
     "ts-node": "10.9.2",
     "tsup": "8.5.0",
     "typescript": "5.8.3",
-    "vitest": "3.1.4"
+    "vitest": "3.2.3"
   },
   "dependencies": {
     "ioredis": "5.6.1",
