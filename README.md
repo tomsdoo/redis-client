@@ -11,7 +11,7 @@ See [redis-client.netlify.app](https://redis-client.netlify.app/) also.
 ![top language](https://img.shields.io/github/languages/top/tomsdoo/redis-client?style=social&logo=typescript)
 ![Maintenance](https://img.shields.io/maintenance/yes/2025?style=social&logo=github)
 ![depends on ioredis@5](https://img.shields.io/badge/ioredis-ioredis@5-informational?style=social&logo=redis)
-![depends on node greater or equal 18](https://img.shields.io/badge/node.js-%3E%3D%2018-lightyellow?style=social&logo=nodedotjs)
+![depends on node greater or equal 20](https://img.shields.io/badge/node.js-%3E%3D%2020-lightyellow?style=social&logo=nodedotjs)
 
 
 ## Installation
