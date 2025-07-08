@@ -1,5 +1,5 @@
-import { Redis } from "@/index";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { Redis } from "@/index";
 
 describe("Redis class", () => {
   let instance: Redis;

@@ -1,5 +1,5 @@
-import { Redis } from "@/index";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { Redis } from "@/index";
 
 interface User {
   email: string;
