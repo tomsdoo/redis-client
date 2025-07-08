@@ -1,14 +1,14 @@
-import { Redis } from "@/index";
 import IORedis from "ioredis";
 import {
-  type MockInstance,
   afterEach,
   beforeEach,
   describe,
   expect,
   it,
+  type MockInstance,
   vi,
 } from "vitest";
+import { Redis } from "@/index";
 
 vi.mock("uuid", () => ({
   v4: () => "dummyId",
