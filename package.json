@@ -54,7 +54,7 @@
     "ts-node": "10.9.2",
     "tsup": "8.5.0",
     "typescript": "5.9.3",
-    "vitest": "3.2.4"
+    "vitest": "4.0.4"
   },
   "dependencies": {
     "ioredis": "5.8.2",

@@ -1,14 +1,17 @@
+import type { RedisOptions } from "ioredis";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Redis } from "@/index";
 
 const { spy } = vi.hoisted(() => ({
-  spy: vi.fn(() => ({
-    name: "dummy",
-  })),
+  spy: vi.fn(),
 }));
 
 vi.mock("ioredis", () => ({
-  default: spy,
+  default: class {
+    constructor(options: RedisOptions) {
+      spy(options);
+    }
+  },
 }));
 
 describe("Redis class", () => {
