@@ -1,6 +1,6 @@
 {
   "name": "@tomsd/redis-client",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "It's a wrapper of ioredis.",
   "type": "module",
   "exports": {
