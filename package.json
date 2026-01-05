@@ -57,7 +57,7 @@
     "vitest": "4.0.16"
   },
   "dependencies": {
-    "ioredis": "5.8.2",
+    "ioredis": "5.9.0",
     "uuid": "13.0.0"
   }
 }
