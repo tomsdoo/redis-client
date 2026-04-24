@@ -58,6 +58,6 @@
   },
   "dependencies": {
     "ioredis": "5.10.1",
-    "uuid": "13.0.0"
+    "uuid": "14.0.0"
   }
 }
