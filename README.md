@@ -9,7 +9,6 @@ See [redis-client.netlify.app](https://redis-client.netlify.app/) also.
 ![ci](https://img.shields.io/github/actions/workflow/status/tomsdoo/redis-client/ci.yml?style=social&logo=github)
 ![checks](https://img.shields.io/github/check-runs/tomsdoo/redis-client/main?style=social&logo=github)
 ![top language](https://img.shields.io/github/languages/top/tomsdoo/redis-client?style=social&logo=typescript)
-![Maintenance](https://img.shields.io/maintenance/yes/2025?style=social&logo=github)
 ![depends on ioredis@5](https://img.shields.io/badge/ioredis-ioredis@5-informational?style=social&logo=redis)
 ![depends on node greater or equal 20](https://img.shields.io/badge/node.js-%3E%3D%2020-lightyellow?style=social&logo=nodedotjs)
 
