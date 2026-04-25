@@ -45,7 +45,7 @@
   },
   "homepage": "https://github.com/tomsdoo/redis-client#readme",
   "devDependencies": {
-    "@biomejs/biome": "2.4.11",
+    "@biomejs/biome": "2.4.12",
     "@tomsd/md-book": "2.0.7",
     "@types/node": "25.6.0",
     "@types/uuid": "11.0.0",
@@ -58,6 +58,6 @@
   },
   "dependencies": {
     "ioredis": "5.10.1",
-    "uuid": "13.0.0"
+    "uuid": "14.0.0"
   }
 }
