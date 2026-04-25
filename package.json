@@ -5,8 +5,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     }
   },
@@ -14,7 +14,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "lint": "biome check",
     "prepare": "husky",
     "start-redis": "docker compose up -d",
@@ -52,8 +52,8 @@
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
     "ts-node": "10.9.2",
-    "tsup": "8.5.1",
-    "typescript": "5.9.3",
+    "tsdown": "0.21.10",
+    "typescript": "6.0.3",
     "vitest": "4.1.4"
   },
   "dependencies": {
