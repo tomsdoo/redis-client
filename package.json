@@ -45,14 +45,14 @@
   },
   "homepage": "https://github.com/tomsdoo/redis-client#readme",
   "devDependencies": {
-    "@biomejs/biome": "2.5.3",
+    "@biomejs/biome": "2.5.4",
     "@tomsd/md-book": "2.1.0",
     "@types/node": "26.1.1",
     "@types/uuid": "11.0.0",
     "husky": "9.1.7",
-    "lint-staged": "17.0.8",
+    "lint-staged": "17.1.0",
     "ts-node": "10.9.2",
-    "tsdown": "0.22.7",
+    "tsdown": "0.22.12",
     "typescript": "7.0.2",
     "vitest": "4.1.10"
   },
